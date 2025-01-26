@@ -13,7 +13,7 @@ def clean_data(df):
     assert isinstance(df, DataFrame)
     if df.isna().any().any():
         for col in df.columns:
-            if df[col].isna().any().any():
+            if df[col].isna().any():
                 if pd.api.types.is_numeric_dtype(df[col]):
                     df[col] = df[col].fillna(df[col].mean())
                 else:
