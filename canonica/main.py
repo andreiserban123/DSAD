@@ -11,15 +11,18 @@ df_cod = pd.read_csv("data/Coduri_Localitati.csv", index_col=0)
 categories = list(df_vot.columns)
 categories = categories[2:]
 
-cerinta1 = df_vot.copy()
+cerinta1_rows = []
+for index, row in df_vot.iterrows():
+    votanti_lp = row["Votanti_LP"]
 
-for category in categories:
-    cerinta1[category] = cerinta1[category] * 100 / cerinta1["Votanti_LP"]
+    row_procente = (row[categories] * 100) / votanti_lp
+    cerinta1_rows.append(
+        {"Siruta": index, "Localitate": row["Localitate"], **row_procente}
+    )
 
-cerinta1.drop("Votanti_LP", axis=1, inplace=True)
 
-cerinta1.to_csv("cerinta1.csv", index=True)
-
+df_cerinta1 = pd.DataFrame(cerinta1_rows)
+df_cerinta1.to_csv("cerinta1.csv", index=False)
 
 # CERINTA 2
 
