@@ -14,7 +14,6 @@ categories = categories[2:]
 cerinta1_rows = []
 for index, row in df_vot.iterrows():
     votanti_lp = row["Votanti_LP"]
-
     row_procente = (row[categories] * 100) / votanti_lp
     cerinta1_rows.append(
         {"Siruta": index, "Localitate": row["Localitate"], **row_procente}
