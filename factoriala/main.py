@@ -78,52 +78,44 @@ df_scoruri = pd.DataFrame(
 print("Dataframe scoruri:")
 print(df_scoruri)
 
-
-# Vizualizare scoruri
-
+# + Vizualizarea scorurilor
 plt.figure("Plot scoruri")
 plt.scatter(df_scoruri["F1"], df_scoruri["F2"])
-
 plt.xlabel("F1")
 plt.ylabel("F2")
 plt.title("Plot scoruri")
 plt.show()
 
-
 # 7. Teste
-
 # Bartlett
+bartlet_test = calculate_bartlett_sphericity(df_date_standardizate)
+print("Bartlet Test: ", bartlet_test[1])
 
-bartlett_test = calculate_bartlett_sphericity(df_date_standardizate)
-print("Bartlett Test: ", bartlett_test[1])
 # KMO
 kmo_test = calculate_kmo(df_date_standardizate)
 print("KMO Test: ", kmo_test[1])
+
 # •	P-Value < 0.05: Matricea de corelație este potrivită pentru analiza factorială.
 # •	P-Value ≥ 0.05: Matricea de corelație poate să nu fie potrivită pentru analiza factorială.
-
 
 # 8. Variante
 variance = modelAf.get_factor_variance()[0]
 print("Varianta: ", variance)
 
 # 9. Corelatii factoriale
-
 corelatii = modelAf.loadings_
 print("Corelatii: ", corelatii)
-
 df_corelatii = pd.DataFrame(
     data=corelatii, index=df_date_numerice.columns, columns=etichete
 )
 print("Dataframe corelatii:")
 print(df_corelatii)
 
-
 plt.figure("Heatmap Corelatii")
 sb.heatmap(df_corelatii)
-
 plt.title("Corelograma Factoriala")
 plt.show()
+
 # 10. Comunalități
 comunalitati = modelAf.get_communalities()
 df_comunalitati = pd.DataFrame(
